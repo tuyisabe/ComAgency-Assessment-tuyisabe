@@ -16,12 +16,15 @@ const PersonalInfo = ({ nextStep, handleChange, userData }) => {
 
   const continueStep = e => {
     e.preventDefault();
+
     
   if(fullName && age && gender && nationality && identification){
     nextStep();
   }
    setValid("fill all informations to continue!!")
   };
+
+  console.log(identification.length)
 
   return (
       <Box
@@ -41,7 +44,11 @@ const PersonalInfo = ({ nextStep, handleChange, userData }) => {
          <TextField id="outlined-basic" label="Enter Full Name" variant="outlined" value={fullName} onChange={handleChange('fullName')} required />
       </FormControl>
       <FormControl fullWidth>
-        <TextField id="outlined-basic" label="Enter your Age" variant="outlined" type="number" value={age} onChange={handleChange('age')} required/>
+        <TextField id="outlined-basic" label="Enter your Age" variant="outlined"         
+        inputProps={{
+          min: 0,
+          max: 120,
+        }} type="number" value={age} onChange={handleChange('age')} required/>
         </FormControl>
 
         <FormControl>
@@ -77,7 +84,13 @@ const PersonalInfo = ({ nextStep, handleChange, userData }) => {
         <TextField id="outlined-basic" label="Enter Passport" variant="outlined" type="text" value={identification} onChange={handleChange('identification')} />
      </FormControl> :nationality==='Local'?
      <FormControl fullWidth>
-        <TextField id="outlined-basic" label="Enter your ID" variant="outlined" type="number" value={identification} onChange={handleChange('identification')} />
+        <TextField id="outlined-basic" label="Enter your ID" variant="outlined"  type="number" value={identification}
+         onChange={handleChange('identification')}       
+         inputProps={{
+          maxLength: 16, // Set the max length
+          inputMode: 'numeric', // Ensures that the input is numeric on mobile keyboards
+          pattern: '[0-9]*', // Ensures only numeric input
+        }}/>
         </FormControl>:null}
      <FormControl >
       <Button variant="contained" onClick={continueStep}>Next</Button>

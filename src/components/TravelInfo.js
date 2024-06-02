@@ -10,12 +10,21 @@ import Button from '@mui/material/Button';
 const TravelInfo = ({ nextStep, prevStep, handleChange, userData }) => {
   const { purpose,duration,dates,port } = userData;
   const [valid,setValid] = useState("")
+  // const [selectedDate, setSelectedDate] = useState("");
   const continueStep = e => {
     e.preventDefault();
     if(purpose && duration && dates && port){
       nextStep();
     }
     setValid("fill all informations to continue!!")
+  };
+  const getCurrentDate = () => {
+    const today = new Date();
+    const day = String(today.getDate()).padStart(2, '0');
+    const month = String(today.getMonth() + 1).padStart(2, '0'); // January is 0
+    const year = today.getFullYear();
+
+    return `${year}-${month}-${day}`;
   };
 
   const previousStep = e => {
@@ -58,7 +67,10 @@ const TravelInfo = ({ nextStep, prevStep, handleChange, userData }) => {
         </FormControl>
 
       <FormControl fullWidth>
-         <TextField defaultValue={Date()} id="outlined-basic" label="Date of Entry" variant="outlined" type='date' InputLabelProps={{ shrink: true }} value={dates} onChange={handleChange('dates')} required />
+         <TextField defaultValue={Date()}       
+         inputProps={{
+         max: getCurrentDate(), 
+      }} id="outlined-basic" label="Date of Entry" variant="outlined" type='date' InputLabelProps={{ shrink: true }} value={dates} onChange={handleChange('dates')} required />
       </FormControl>
 
       <FormControl fullWidth>
