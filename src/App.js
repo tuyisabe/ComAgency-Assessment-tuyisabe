@@ -4,7 +4,7 @@ import TravelInfo from './components/TravelInfo';
 import ContactInfo from './components/ContactInfo';
 import Confirmation from './components/Confirmation';
 import Papper from '@mui/material/Card';
-import './app.css';
+// import './app.css';
 
 function App() {
   const [step, setStep] = useState(1);
